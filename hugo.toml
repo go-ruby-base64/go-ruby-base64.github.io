@@ -1,0 +1,31 @@
+baseURL = "https://go-ruby-base64.github.io/"
+title = "go-ruby-base64"
+disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[[params.phases]]
+  name = "Encode64 / StrictEncode64"
+  status = "ready"
+  blurb = "`Encode64` is RFC 2045 (`pack(\"m\")`): the standard `+/` alphabet, a newline every 60 output characters and a trailing newline (the empty string encodes to empty). `StrictEncode64` is `pack(\"m0\")` — same alphabet, no newlines."
+[[params.phases]]
+  name = "Decode64 (lenient)"
+  status = "ready"
+  blurb = "`String#unpack1(\"m\")` semantics: non-alphabet bytes are skipped, padding is optional, a `=` on a partial quad finalises and **stops** decoding, a `=` on a quad boundary is ignored, and a lone orphaned final sextet is discarded."
+[[params.phases]]
+  name = "Strict & url-safe variants"
+  status = "ready"
+  blurb = "`StrictDecode64` (`unpack1(\"m0\")`) rejects any stray byte — including the newlines `encoding/base64` tolerates — with `ErrInvalid`. `UrlsafeEncode64` / `UrlsafeDecode64` use the `-_` alphabet (RFC 4648); padding is on by default and stripped when `padding=false`."
+[[params.phases]]
+  name = "SIMD acceleration"
+  status = "ready"
+  blurb = "The hot standard-alphabet bodies run on [go-simd/base64](https://github.com/go-simd/base64)'s go-asmgen kernels (amd64 SSE/AVX2, arm64 NEON, ppc64le VSX, s390x vector; stdlib fallback elsewhere) — CGO=0 SIMD across all six 64-bit Go arches, bit-identical to `encoding/base64.StdEncoding`."
+[[params.phases]]
+  name = "Standalone & reusable"
+  status = "ready"
+  blurb = "A standalone module with no dependency on the Ruby runtime; `rbgo` binds it as a native module the same way it binds go-ruby-regexp, go-ruby-erb and go-ruby-yaml. Argument coercion and raising `ArgumentError` are the host's job; the library returns a Go `error`."
+[[params.phases]]
+  name = "Differential oracle & coverage"
+  status = "ready"
+  blurb = "A wide corpus — every length class, a line wrap, non-ASCII bytes and malformed/strict inputs — driven through the system `ruby` and asserted byte-equal; 100% coverage, gofmt + go vet clean, green across all six 64-bit Go arches and three OSes."
