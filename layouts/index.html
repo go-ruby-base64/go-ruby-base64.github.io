@@ -41,11 +41,9 @@
   <div class="hero"><div class="wrap">
     <div>
       <h1 class="head">go-ruby-base64</h1>
-      <p class="sub">Ruby's <code>Base64</code> module in pure Go — MRI-compatible, SIMD-accelerated, no cgo.</p>
-      <div class="cta">
-        <a class="btn btn-primary" href="/docs/">{{ partial "icons/book.html" . }}Documentation</a>
-        <a class="btn btn-ghost" href="https://github.com/go-ruby-base64/yaml">{{ partial "icons/github.html" . }}GitHub</a>
-      </div>
+      <p class="sub">Ruby's <code>Base64</code> module in {{ if partial "mantra-on.html" . }}Go{{ else }}pure Go{{ end }} — MRI-compatible, SIMD-accelerated, {{ if not (partial "mantra-on.html" $) }}no cgo{{ end }}.</p>
+      {{/* [[params.cta]] in hugo.toml: the kit renders the row */}}
+      {{ partial "cta.html" . }}
       <div class="trust">{{ if not (partial "mantra-on.html" $) }}<span class="pill">pure Go · zero cgo</span>{{ end }}<span class="pill">MRI <code>Base64</code></span><span class="pill">RFC 2045 + url-safe</span><span class="pill">lenient + strict</span><span class="pill">go-simd/base64</span><span class="pill">SIMD on 6 arches</span><span class="pill">bit-identical to StdEncoding</span><span class="pill">MRI byte-exact</span><span class="pill">100% coverage</span><span class="pill">6 arches</span></div>
       <div class="legacy"><div class="badges">
       <a href="/docs/"><img alt="Documentation (MkDocs Material + mike)" src="https://img.shields.io/badge/docs-mkdocs--material-9B1C2E"></a>
